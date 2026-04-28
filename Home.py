@@ -13,17 +13,7 @@ st.markdown("""
 
 st.markdown("---")
 
-st.info("Seleccione Paciente o Médico en el menú lateral o use los accesos directos.")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.page_link("pages/1_Paciente.py", label="👤 Ir a Paciente")
-
-with col2:
-    st.page_link("pages/2_Medico.py", label="👩‍⚕️ Ir a Médico")
-
-st.markdown("---")
+st.info("Seleccione Paciente o Médico en el menú lateral.")
 
 col1, col2 = st.columns(2)
 
