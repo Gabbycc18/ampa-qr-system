@@ -13,19 +13,17 @@ st.markdown("""
 
 st.markdown("---")
 
-st.info("Seleccione una opción:")
+st.info("Seleccione Paciente o Médico en el menú lateral.")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### 👤 Paciente")
     st.write("Registra tus mediciones y genera un QR para consulta.")
-   st.page_link("pages/1_Paciente.py", label="👤 Ir a Paciente")
 
 with col2:
     st.markdown("### 👩‍⚕️ Médico")
     st.write("Escanea el QR y analiza automáticamente los resultados.")
-    st.page_link("pages/2_Medico.py", label="👩‍⚕️ Ir a Médico")
 
 st.divider()
 st.caption("Proyecto de Salud Digital en Atención Primaria | AMPA QR System")
