@@ -13,18 +13,15 @@ st.markdown("""
 
 st.markdown("---")
 
-st.info("Seleccione Paciente o Médico en el menú lateral")
+st.info("Seleccione Paciente o Médico en el menú lateral o use los accesos directos.")
 
-# 👇 AQUÍ VA EL BOTÓN
 col1, col2 = st.columns(2)
 
 with col1:
-    if st.button("👤 Ir a Paciente"):
-        st.switch_page("pages/1_Paciente.py")
+    st.page_link("pages/1_Paciente.py", label="👤 Ir a Paciente")
 
 with col2:
-    if st.button("👩‍⚕️ Ir a Médico"):
-        st.switch_page("pages/2_Medico.py")
+    st.page_link("pages/2_Medico.py", label="👩‍⚕️ Ir a Médico")
 
 st.markdown("---")
 
@@ -32,11 +29,11 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### 👤 Paciente")
-    st.write("Registra tus mediciones y genera un QR")
+    st.write("Registra tus mediciones y genera un QR para consulta.")
 
 with col2:
     st.markdown("### 👩‍⚕️ Médico")
-    st.write("Escanea el QR y analiza automáticamente")
+    st.write("Escanea el QR y analiza automáticamente los resultados.")
 
 st.divider()
 st.caption("Proyecto de Salud Digital en Atención Primaria | AMPA QR System")
