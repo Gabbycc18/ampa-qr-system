@@ -3,45 +3,40 @@ import numpy as np
 import urllib.parse
 
 st.set_page_config(page_title="AMPA Médico", layout="centered")
-
 st.title("Interpretación AMPA - Modo médico")
-st.write("Pega aquí los datos generados por la app del paciente.")
 
-query_params = st.query_params
+# Leer datos de la URL si vienen del QR
+params = st.query_params
+datos_url = params.get("data", "")
 
-if "data" in query_params:
-    texto = urllib.parse.unquote(query_params["data"])
-    st.success("Datos cargados automáticamente desde QR")
+if datos_url:
+    texto_pre = urllib.parse.unquote(datos_url)
+    st.success("Datos cargados automáticamente desde el QR")
 else:
-    texto = st.text_area("Datos AMPA del paciente", height=160)
+    texto_pre = ""
+
+st.write("Pega aquí los datos generados por la app del paciente.")
+texto = st.text_area("Datos AMPA del paciente", value=texto_pre, height=160)
 
 excluir_primer_dia = st.checkbox("Excluir primer día", value=True)
-
 
 def parsear_datos(texto):
     dias = texto.strip().split(";")
     lecturas = []
-
     for d in dias:
         if d.strip() == "":
             continue
-
         nombre_dia, valores = d.split(":")
         dia_num = int(nombre_dia.replace("D", ""))
-
         pares = valores.split(",")
-
         for p in pares:
             sis, dia = p.split("/")
             lecturas.append((dia_num, int(sis), int(dia)))
-
     return lecturas
-
 
 if st.button("Analizar AMPA"):
     try:
         lecturas = parsear_datos(texto)
-
         if excluir_primer_dia:
             lecturas_validas = [x for x in lecturas if x[0] != 1]
         else:
@@ -49,12 +44,10 @@ if st.button("Analizar AMPA"):
 
         sistolicas = [x[1] for x in lecturas_validas]
         diastolicas = [x[2] for x in lecturas_validas]
-
         media_sis = round(np.mean(sistolicas), 1)
         media_dia = round(np.mean(diastolicas), 1)
 
         st.subheader("Resultado")
-
         st.write(f"Lecturas válidas: {len(lecturas_validas)}")
         st.write(f"Media AMPA: {media_sis}/{media_dia} mmHg")
 
@@ -72,10 +65,8 @@ if st.button("Analizar AMPA"):
             f"Monitorización domiciliaria de presión arterial (AMPA) "
             f"con {len(lecturas_validas)} lecturas válidas. "
         )
-
         if excluir_primer_dia:
             texto_clinico += "Se excluye el primer día del análisis. "
-
         texto_clinico += (
             f"Media domiciliaria de {media_sis}/{media_dia} mmHg. "
             f"Resultado compatible con {interpretacion}."
