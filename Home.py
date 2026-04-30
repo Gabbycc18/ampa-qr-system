@@ -1,8 +1,10 @@
 import streamlit as st
 
-# Redirigir automáticamente si viene del QR
 params = st.query_params
+
 if "mode" in params and params["mode"] == "medico":
+    if "data" in params:
+        st.session_state["datos_qr"] = params["data"]
     st.switch_page("pages/2_Medico.py")
 
 st.set_page_config(page_title="Sistema AMPA", layout="centered")
