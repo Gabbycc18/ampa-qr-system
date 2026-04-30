@@ -46,7 +46,7 @@ if st.button("Generar QR para consulta"):
 
     texto_codificado = urllib.parse.quote(texto)
 
-    link_medico = f"https://ampa-qr-medico.streamlit.app?data={texto_codificado}"
+    link_medico = f"https://ampa-qr-system.streamlit.app/?mode=medico&data={texto_codificado}"
 
     st.subheader("Resumen AMPA generado")
     st.text_area("Datos codificados", texto, height=150)
