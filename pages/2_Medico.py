@@ -5,12 +5,16 @@ import urllib.parse
 st.set_page_config(page_title="AMPA Médico", layout="centered")
 st.title("Interpretación AMPA - Modo médico")
 
-# Leer datos de la URL si vienen del QR
-params = st.query_params
-datos_url = params.get("data", "")
+# Leer datos del QR via session_state o query_params
+datos_raw = ""
 
-if datos_url:
-    texto_pre = urllib.parse.unquote(datos_url)
+if "datos_qr" in st.session_state:
+    datos_raw = st.session_state["datos_qr"]
+elif "data" in st.query_params:
+    datos_raw = st.query_params["data"]
+
+if datos_raw:
+    texto_pre = urllib.parse.unquote(datos_raw)
     st.success("Datos cargados automáticamente desde el QR")
 else:
     texto_pre = ""
